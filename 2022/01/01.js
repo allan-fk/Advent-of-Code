@@ -1,15 +1,26 @@
 const { input } = require("./input");
 
-const sumsSorted = input.map((lines) => {
-  const sumOfNumbers = [];
-  let addNumber = 0;
-  let i = 0;
-  lines.split(/\r\n/).forEach(n => {
-    if(n == "") {
-      addNumber = 0;
-      i++;
-    }
-    else sumOfNumbers[i] = addNumber += parseInt(n, 10);
+const sortElfsByCaloriesHL = input.map((lines) => {
+  const caloriesByElf = [];
+  let sumOfCaloriesForCurrentElf = 0;
+  let ElfNumber = 0;
+
+  lines.split(/\r\n/).forEach((calorie) => {
+    if (calorie == "") {
+      sumOfCaloriesForCurrentElf = 0;
+      ElfNumber++;
+    } else
+      caloriesByElf[ElfNumber] = sumOfCaloriesForCurrentElf += parseInt(
+        calorie,
+        10
+      );
   });
-  console.log(sumOfNumbers.sort((a, z) => z - a)[0]);
+
+  return caloriesByElf.sort((a, z) => z - a);
 });
+
+const MostCalorieElf = sortElfsByCaloriesHL[0][1];
+
+const sumTop3ElfsMostCalories = sortElfsByCaloriesHL[0]
+  .slice(0, 3)
+  .reduce((a, b) => a + b, 0);
